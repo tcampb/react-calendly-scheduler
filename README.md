@@ -1,5 +1,8 @@
 # react-calendly-scheduler
 
+<img width="821" height="561" alt="image" src="https://github.com/user-attachments/assets/25046af8-2295-449c-a14e-d16c4d03e56b" />
+
+
 ## 📅 Overview
 
 This package provides a prebuilt React component that replicates Calendly’s scheduling page experience without relying on an iframe.
