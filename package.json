@@ -1,6 +1,6 @@
 {
   "name": "react-calendly-scheduler",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "repository": "tcampb/react-calendly-scheduler",
   "type": "module",
@@ -18,7 +18,7 @@
         "default": "./dist/calendly-scheduler.cjs"
       }
     },
-    "./styles.css": "./dist/calendly-scheduler.css"
+    "./styles.css": "./dist/react-calendly-scheduler.css"
   },
   "files": [
     "dist"
