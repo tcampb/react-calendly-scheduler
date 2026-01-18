@@ -36,7 +36,11 @@ const getLocationDisplayName = (location: LocationConfiguration): string => {
   return kindLabels[location.kind] || location.kind;
 };
 
-function App() {
+interface AppProps {
+  availabilityOnly?: boolean;
+}
+
+function App({ availabilityOnly }: AppProps) {
   const [selectedTimezone, setSelectedTimezone] = useState("America/New_York");
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [month, setMonth] = useState<Date>(new Date());
@@ -203,7 +207,7 @@ function App() {
         <AvailableTimes
           availability={availability}
           loading={availableTimesLoading}
-          onTimeSelect={setSelectedTime}
+          onTimeSelect={availabilityOnly ? undefined : setSelectedTime}
         />
       </div>
     </Card>
@@ -299,7 +303,7 @@ function App() {
                 <AvailableTimes
                   availability={availability}
                   loading={availableTimesLoading}
-                  onTimeSelect={setSelectedTime}
+                  onTimeSelect={availabilityOnly ? undefined : setSelectedTime}
                 />
               </div>
             )}
@@ -315,15 +319,17 @@ function App() {
 export interface CalendlySchedulerProps {
   clientId: string;
   eventTypeUuid: string;
+  availabilityOnly?: boolean;
 }
 
 export default function CalendlyScheduler({
   clientId,
   eventTypeUuid,
+  availabilityOnly,
 }: CalendlySchedulerProps) {
   return (
     <CalendlyAppProvider clientId={clientId} eventTypeUuid={eventTypeUuid}>
-      <App />
+      <App availabilityOnly={availabilityOnly} />
     </CalendlyAppProvider>
   );
 }

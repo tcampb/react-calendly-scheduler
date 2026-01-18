@@ -37,6 +37,7 @@ function App() {
 |------|------|----------|-------------|
 | `clientId` | `string` | Yes | Your Calendly Components API client ID |
 | `eventTypeUuid` | `string` | Yes | The UUID of the Calendly event type to display |
+| `availabilityOnly` | `boolean` | No | When `true`, disables time slot selection and hides the booking form. Useful for displaying availability without allowing bookings. |
 
 ## Styling
 

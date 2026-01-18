@@ -10,7 +10,7 @@ function AvailableTimes({
 }: {
   availability: Availability | null;
   loading: boolean;
-  onTimeSelect: (spot: any) => void;
+  onTimeSelect?: (spot: any) => void;
 }) {
   if (loading) {
     return (
@@ -44,8 +44,8 @@ function AvailableTimes({
         <Button
           key={spot.start_time}
           variant="outline"
-          className="w-full h-12 font-semibold text-primary hover:bg-primary hover:text-primary-foreground hover:border-primary transition-colors"
-          onClick={() => onTimeSelect(spot)}
+          className={`w-full h-12 font-semibold text-primary transition-colors ${onTimeSelect ? "hover:bg-primary hover:text-primary-foreground hover:border-primary cursor-pointer" : "cursor-default hover:bg-background"}`}
+          onClick={onTimeSelect ? () => onTimeSelect(spot) : undefined}
         >
           {new Date(spot.start_time).toLocaleTimeString([], {
             hour: "numeric",
