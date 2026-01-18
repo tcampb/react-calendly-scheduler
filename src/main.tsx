@@ -11,6 +11,7 @@ createRoot(document.getElementById("root")!).render(
     <CalendlyScheduler
       clientId={CLIENT_ID}
       eventTypeUuid={EVENT_TYPE_UUID}
+      availabilityOnly={false}
     />
   </StrictMode>,
 );
