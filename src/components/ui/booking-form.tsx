@@ -48,6 +48,7 @@ interface BookingFormProps {
   selectedTime: { start_time: string };
   onBack: () => void;
   timezone: string;
+  submitButtonText?: string;
 }
 
 function BookingForm({
@@ -55,6 +56,7 @@ function BookingForm({
   selectedTime,
   onBack,
   timezone,
+  submitButtonText = "Schedule Event",
 }: BookingFormProps) {
   const { schedule, error, loading, scheduledEvent } = useScheduleEvent();
   const [formData, setFormData] = useState<Record<string, any>>({});
@@ -520,17 +522,17 @@ function BookingForm({
             </div>
           </div>
         </CardContent>
-        <CardFooter className="mt-5 flex gap-3 border-t bg-muted/30 px-6 py-4">
+        <CardFooter className="mt-5 flex flex-col-reverse sm:flex-row gap-3 border-t bg-muted/30 px-6 py-4">
           <Button
             type="button"
             variant="outline"
             onClick={onBack}
-            className="flex-1"
+            className="w-full sm:flex-1"
           >
             Back
           </Button>
-          <Button type="submit" className="flex-1" disabled={loading}>
-            {loading ? "Scheduling..." : "Schedule Event"}
+          <Button type="submit" className="w-full sm:flex-1" disabled={loading}>
+            {loading ? "Scheduling..." : submitButtonText}
           </Button>
         </CardFooter>
       </form>

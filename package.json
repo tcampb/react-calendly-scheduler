@@ -1,6 +1,6 @@
 {
   "name": "react-calendly-scheduler",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "license": "MIT",
   "repository": "tcampb/react-calendly-scheduler",
   "type": "module",
@@ -31,7 +31,8 @@
     "build": "tsc -b && vite build",
     "build:lib": "vite build --mode lib && tsc -p tsconfig.lib.json",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepublishOnly": "npm run build:lib"
   },
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",

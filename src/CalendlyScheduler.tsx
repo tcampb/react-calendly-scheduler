@@ -38,9 +38,10 @@ const getLocationDisplayName = (location: LocationConfiguration): string => {
 
 interface AppProps {
   availabilityOnly?: boolean;
+  submitButtonText?: string;
 }
 
-function App({ availabilityOnly }: AppProps) {
+function App({ availabilityOnly, submitButtonText }: AppProps) {
   const [selectedTimezone, setSelectedTimezone] = useState("America/New_York");
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [month, setMonth] = useState<Date>(new Date());
@@ -222,6 +223,7 @@ function App({ availabilityOnly }: AppProps) {
             selectedTime={selectedTime}
             onBack={() => setSelectedTime(null)}
             timezone={selectedTimezone}
+            submitButtonText={submitButtonText}
           />
         </div>
       );
@@ -321,6 +323,7 @@ export interface CalendlySchedulerProps {
   eventTypeUuid: string;
   availabilityOnly?: boolean;
   rootUrl?: string;
+  submitButtonText?: string;
 }
 
 export default function CalendlyScheduler({
@@ -328,10 +331,11 @@ export default function CalendlyScheduler({
   eventTypeUuid,
   availabilityOnly,
   rootUrl = "https://components.calforce.pro",
+  submitButtonText,
 }: CalendlySchedulerProps) {
   return (
     <CalendlyAppProvider clientId={clientId} eventTypeUuid={eventTypeUuid} rootUrl={rootUrl}>
-      <App availabilityOnly={availabilityOnly} />
+      <App availabilityOnly={availabilityOnly} submitButtonText={submitButtonText} />
     </CalendlyAppProvider>
   );
 }
