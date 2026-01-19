@@ -320,15 +320,17 @@ export interface CalendlySchedulerProps {
   clientId: string;
   eventTypeUuid: string;
   availabilityOnly?: boolean;
+  rootUrl?: string;
 }
 
 export default function CalendlyScheduler({
   clientId,
   eventTypeUuid,
   availabilityOnly,
+  rootUrl = "https://components.calforce.pro",
 }: CalendlySchedulerProps) {
   return (
-    <CalendlyAppProvider clientId={clientId} eventTypeUuid={eventTypeUuid}>
+    <CalendlyAppProvider clientId={clientId} eventTypeUuid={eventTypeUuid} rootUrl={rootUrl}>
       <App availabilityOnly={availabilityOnly} />
     </CalendlyAppProvider>
   );
