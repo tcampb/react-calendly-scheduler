@@ -3,14 +3,15 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import CalendlyScheduler from "./CalendlyScheduler.tsx";
 
-const CLIENT_ID = ""
-const EVENT_TYPE_UUID = ""
+const params = new URLSearchParams(window.location.search);
+const clientId = params.get("client_id");
+const eventTypeUuid = params.get("event_type_uuid");
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <CalendlyScheduler
-      clientId={CLIENT_ID}
-      eventTypeUuid={EVENT_TYPE_UUID}
+      clientId={clientId!}
+      eventTypeUuid={eventTypeUuid!}
       availabilityOnly={false}
     />
   </StrictMode>,

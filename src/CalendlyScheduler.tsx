@@ -217,7 +217,7 @@ function App({ availabilityOnly, submitButtonText }: AppProps) {
   const Content = () => {
     if (selectedTime) {
       return (
-        <div className="w-full max-w-xl mx-auto">
+        <div className="w-full max-w-xl mx-auto md:mt-12">
           <BookingForm
             eventType={eventType!}
             selectedTime={selectedTime}
@@ -240,7 +240,7 @@ function App({ availabilityOnly, submitButtonText }: AppProps) {
 
         {/* Main Card - Hidden on mobile when times view is shown */}
         <Card
-          className={`shadow-lg w-full lg:w-fit lg:mx-auto max-w-full overflow-hidden rounded-none lg:rounded-xl ${showMobileTimesView && date ? "hidden lg:block" : ""}`}
+          className={`shadow-lg w-full lg:w-fit lg:mx-auto lg:mt-12 max-w-full overflow-hidden rounded-none lg:rounded-xl ${showMobileTimesView && date ? "hidden lg:block" : ""}`}
         >
           {/* Mobile Event Header */}
           <MobileEventHeader />
