@@ -532,7 +532,7 @@ function BookingForm({
             Back
           </Button>
           <Button type="submit" className="w-full sm:flex-1" disabled={loading}>
-            {loading ? "Scheduling..." : submitButtonText}
+            {loading ? "Scheduling..." : submitButtonText || "Schedule Event"}
           </Button>
         </CardFooter>
       </form>
