@@ -39,7 +39,31 @@ function App() {
 | `eventTypeUuid` | `string` | Yes | The UUID of the Calendly event type to display |
 | `availabilityOnly` | `boolean` | No | When `true`, disables time slot selection and hides the booking form. Useful for displaying availability without allowing bookings. |
 | `submitButtonText` | `string` | No | Custom text for the booking form submit button. Defaults to `"Schedule Event"`. |
+| `locationAvailability` | `LocationOption[]` | No | Array of location options that allow users to switch between different event types. Each option has `name` and `eventTypeUuid`. |
 
+### Location Availability
+
+The `locationAvailability` prop enables a unified calendar view where users can select between different locations (each backed by a separate Calendly event type). This is useful when you offer the same service in different formats (e.g., in-person vs virtual).
+
+```tsx
+import { CalendlyScheduler, LocationOption } from "react-calendly-scheduler";
+import "react-calendly-scheduler/styles.css";
+
+const locations: LocationOption[] = [
+  { name: "Video Conference", eventTypeUuid: "abc-123" },
+  { name: "In Person", eventTypeUuid: "def-456" },
+];
+
+function App() {
+  return (
+    <CalendlyScheduler
+      clientId="your-client-id"
+      eventTypeUuid="abc-123"
+      locationAvailability={locations}
+    />
+  );
+}
+```
 
 ## Styling
 

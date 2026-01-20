@@ -10,6 +10,7 @@ import {
 } from "react-calendly-components";
 import { Calendar } from "@/components/ui/calendar";
 import { TimezoneSelect } from "@/components/ui/timezone-select";
+import { LocationSelect } from "@/components/ui/location-select";
 import { Spinner } from "@/components/ui/spinner";
 import { AvailableTimes } from "@/components/ui/available-times";
 import { BookingForm } from "./components/ui/booking-form";
@@ -39,9 +40,12 @@ const getLocationDisplayName = (location: LocationConfiguration): string => {
 interface AppProps {
   availabilityOnly?: boolean;
   submitButtonText?: string;
+  locationAvailability?: LocationOption[];
+  selectedLocation?: LocationOption;
+  onLocationChange?: (location: LocationOption) => void;
 }
 
-function App({ availabilityOnly, submitButtonText }: AppProps) {
+function App({ availabilityOnly, submitButtonText, locationAvailability, selectedLocation, onLocationChange }: AppProps) {
   const [selectedTimezone, setSelectedTimezone] = useState("America/New_York");
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [month, setMonth] = useState<Date>(new Date());
@@ -189,12 +193,19 @@ function App({ availabilityOnly, submitButtonText }: AppProps) {
         </div>
       </div>
 
-      {/* Timezone */}
-      <div className="p-4 border-b">
+      {/* Timezone and Location */}
+      <div className="p-4 border-b space-y-4">
         <TimezoneSelect
           selectedTimezone={selectedTimezone}
           setSelectedTimezone={setSelectedTimezone}
         />
+        {locationAvailability && selectedLocation && onLocationChange && (
+          <LocationSelect
+            locations={locationAvailability}
+            selectedLocation={selectedLocation}
+            onLocationChange={onLocationChange}
+          />
+        )}
       </div>
 
       {/* Times */}
@@ -253,11 +264,18 @@ function App({ availabilityOnly, submitButtonText }: AppProps) {
 
             {/* Middle - Calendar */}
             <div className="p-6 lg:border-r">
-              <div className="mb-6 pb-4 border-b">
+              <div className="mb-6 pb-4 border-b space-y-4">
                 <TimezoneSelect
                   selectedTimezone={selectedTimezone}
                   setSelectedTimezone={setSelectedTimezone}
                 />
+                {locationAvailability && selectedLocation && onLocationChange && (
+                  <LocationSelect
+                    locations={locationAvailability}
+                    selectedLocation={selectedLocation}
+                    onLocationChange={onLocationChange}
+                  />
+                )}
               </div>
               <h2 className="font-semibold text-lg mb-6">
                 Select a Date & Time
@@ -318,12 +336,18 @@ function App({ availabilityOnly, submitButtonText }: AppProps) {
   return <Content />;
 }
 
+export interface LocationOption {
+  name: string;
+  eventTypeUuid: string;
+}
+
 export interface CalendlySchedulerProps {
   clientId: string;
   eventTypeUuid: string;
   availabilityOnly?: boolean;
   rootUrl?: string;
   submitButtonText?: string;
+  locationAvailability?: LocationOption[];
 }
 
 export default function CalendlyScheduler({
@@ -332,10 +356,24 @@ export default function CalendlyScheduler({
   availabilityOnly,
   rootUrl = "https://components.calforce.pro",
   submitButtonText,
+  locationAvailability,
 }: CalendlySchedulerProps) {
+  const [selectedLocation, setSelectedLocation] = useState<LocationOption | undefined>(
+    locationAvailability?.[0]
+  );
+
+  // Use key to force App remount when location changes, resetting date/time selection
+  const activeEventTypeUuid = selectedLocation?.eventTypeUuid ?? eventTypeUuid;
+
   return (
-    <CalendlyAppProvider clientId={clientId} eventTypeUuid={eventTypeUuid} rootUrl={rootUrl}>
-      <App availabilityOnly={availabilityOnly} submitButtonText={submitButtonText} />
+    <CalendlyAppProvider key={activeEventTypeUuid} clientId={clientId} eventTypeUuid={activeEventTypeUuid} rootUrl={rootUrl}>
+      <App
+        availabilityOnly={availabilityOnly}
+        submitButtonText={submitButtonText}
+        locationAvailability={locationAvailability}
+        selectedLocation={selectedLocation}
+        onLocationChange={setSelectedLocation}
+      />
     </CalendlyAppProvider>
   );
 }
