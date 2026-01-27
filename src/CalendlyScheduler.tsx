@@ -46,7 +46,9 @@ interface AppProps {
 }
 
 function App({ availabilityOnly, submitButtonText, locationAvailability, selectedLocation, onLocationChange }: AppProps) {
-  const [selectedTimezone, setSelectedTimezone] = useState("America/New_York");
+  const [selectedTimezone, setSelectedTimezone] = useState(
+    Intl.DateTimeFormat().resolvedOptions().timeZone
+  );
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [month, setMonth] = useState<Date>(new Date());
   const [showMobileTimesView, setShowMobileTimesView] = useState(false);
